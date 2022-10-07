@@ -20,8 +20,11 @@ import lombok.EqualsAndHashCode;
 public class Employee implements Serializable {
 	
 	private static final long serialVersionUID = -192976203164589761L;
-
+	
 	@Id
+	@Column(name = "id_entity")
+	private Integer id;
+
 	@OneToOne
 	@JoinColumn(name = "id_entity", referencedColumnName = "id")
 	private net.posapp.orm.Entity entity;

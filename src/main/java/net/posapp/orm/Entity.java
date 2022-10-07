@@ -26,11 +26,15 @@ public class Entity implements Serializable {
 	private Integer id;
 
 	@Column(name = "st_name")
-	private String description;
+	private String name;
 
 	@OneToOne
 	@JoinColumn(name = "st_entity_type", referencedColumnName = "st_entity_type")
 	private EntityType entityType;
+
+	@OneToOne
+	@JoinColumn(name = "id_address", referencedColumnName = "id")
+	private Address address;
 
 	@OneToMany(mappedBy = "entity")
 	private List<EntityRole> roles;

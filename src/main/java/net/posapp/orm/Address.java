@@ -30,9 +30,6 @@ public class Address implements Serializable {
 	
 	@Column(name = "st_address")
 	private String address;
-
-	@Column(name = "st_name")
-	private String description;
 	
 	@Column(name = "nm_number")
 	private Integer number;
