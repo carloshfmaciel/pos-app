@@ -79,7 +79,10 @@ DROP TABLE IF EXISTS `ORDER`;
 CREATE TABLE `ORDER` (  
   id int(11) AUTO_INCREMENT PRIMARY KEY,
   id_customer int NOT NULL,
-  foreign key (id_customer) references ENTITY(id)
+  status varchar(1) NOT NULL DEFAULT 'A',
+  foreign key (id_customer) references ENTITY(id),
+  CONSTRAINT CHK_ORDER_STATUS CHECK (status in('A', 'I')),
+  UNIQUE UQ_ORDER_ENTITY (id, id_customer)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `SCHEDULE_DELIVERY`;
