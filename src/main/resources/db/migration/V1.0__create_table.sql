@@ -91,6 +91,9 @@ CREATE TABLE `SCHEDULE_DELIVERY` (
   id_order int NOT NULL,
   id_employee int NOT NULL,
   dt_delivery DATE NOT NULL,
+  status varchar(1) NOT NULL DEFAULT 'A',
+  dt_delivered_at DATE NULL,
+  CONSTRAINT CHK_SCHDLV_STATUS CHECK (status in('A', 'D', 'C')),
   foreign key (id_order) references `ORDER`(id),
   foreign key (id_employee) references `ENTITY`(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

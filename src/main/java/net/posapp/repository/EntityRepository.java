@@ -7,5 +7,5 @@ import net.posapp.orm.Entity;
 
 @Repository
 public interface EntityRepository extends JpaRepository<Entity, Integer> {
-
+	
 }
