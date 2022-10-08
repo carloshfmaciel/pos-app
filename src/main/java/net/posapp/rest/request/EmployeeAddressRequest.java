@@ -9,8 +9,6 @@ public class EmployeeAddressRequest {
 
 	private String address;
 
-	private String description;
-
 	private Integer number;
 
 	private String zipCode;

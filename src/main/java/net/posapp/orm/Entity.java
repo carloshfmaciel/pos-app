@@ -27,6 +27,9 @@ public class Entity implements Serializable {
 
 	@Column(name = "st_name")
 	private String name;
+	
+	@Column(name = "status")
+	private String status;
 
 	@OneToOne
 	@JoinColumn(name = "st_entity_type", referencedColumnName = "st_entity_type")

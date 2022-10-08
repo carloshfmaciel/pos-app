@@ -1,6 +1,9 @@
 package net.posapp.builder;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +15,7 @@ import net.posapp.orm.Entity;
 import net.posapp.orm.EntityType;
 import net.posapp.repository.CityRepository;
 import net.posapp.repository.EntityTypeRepository;
+import net.posapp.rest.request.EmployeeAddressRequest;
 import net.posapp.rest.request.EmployeeRequest;
 
 @Component
@@ -58,6 +62,39 @@ public class EmployeeBuilder {
 
 		return null;
 
+	}
+
+	public EmployeeRequest build(Employee employee) {
+
+		EmployeeRequest employeeRequest = new EmployeeRequest();
+		employeeRequest.setId(employee.getId());
+		employeeRequest.setJobRole(employee.getJobRole());
+		employeeRequest.setName(employee.getEntity().getName());
+		employeeRequest.setEntityType(employee.getEntity().getEntityType().getType());
+		employeeRequest
+				.setRoles(employee.getEntity().getRoles() != null && !employee.getEntity().getRoles().isEmpty()
+						? employee.getEntity().getRoles().stream().map(role -> role.getRole().getName()).collect(
+								Collectors.toList())
+						: Arrays.asList());
+		employeeRequest.setAdmissionDate(employee.getAdmissionDate());
+		employeeRequest.setStartPeriodTime(employee.getStartPeriodTime());
+		employeeRequest.setEndPeriodTime(employee.getEndPeriodTime());
+
+		EmployeeAddressRequest employeeAddressRequest = new EmployeeAddressRequest();
+		employeeAddressRequest.setAddress(employee.getEntity().getAddress().getAddress());
+		employeeAddressRequest.setNumber(employee.getEntity().getAddress().getNumber());
+		employeeAddressRequest.setZipCode(employee.getEntity().getAddress().getZipCode());
+		employeeAddressRequest.setCityId(employee.getEntity().getAddress().getCity().getId());
+
+		employeeRequest.setAddress(employeeAddressRequest);
+
+		return employeeRequest;
+	}
+
+	public List<EmployeeRequest> build(List<Employee> employees) {
+		List<EmployeeRequest> result = employees.stream().map(employee -> this.build(employee))
+				.collect(Collectors.toList());
+		return result;
 	}
 
 }

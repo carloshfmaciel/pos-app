@@ -33,6 +33,8 @@ CREATE TABLE ENTITY (
   id int(11) AUTO_INCREMENT PRIMARY KEY,
   st_name varchar(255) NOT NULL,
   st_entity_type varchar(2) NOT NULL,
+  status varchar(1) NOT NULL DEFAULT 'A',
+  CONSTRAINT CHK_ENTITY_STATUS CHECK (status in('A', 'I')),
   foreign key (st_entity_type) references ENTITY_TYPE(st_entity_type)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
