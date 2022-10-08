@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,13 +37,13 @@ public class EmployeeController {
 	}
 
 	@PostMapping(path = "/")
-	public ResponseEntity<EmployeeRequest> insert(EmployeeRequest employeeRequest) {
+	public ResponseEntity<EmployeeRequest> insert(@RequestBody EmployeeRequest employeeRequest) {
 		employeeService.save(employeeRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body(employeeRequest);
 	}
 
 	@PutMapping(path = "/")
-	public ResponseEntity<EmployeeRequest> update(EmployeeRequest employeeRequest) {
+	public ResponseEntity<EmployeeRequest> update(@RequestBody EmployeeRequest employeeRequest) {
 		employeeService.save(employeeRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(employeeRequest);
 	}

@@ -22,7 +22,7 @@ public class EntityType implements Serializable {
 	@Column(name = "st_entity_type")
 	private String type;
 
-	@Column(name = "st_name")
+	@Column(name = "st_desc")
 	private String description;
 
 }

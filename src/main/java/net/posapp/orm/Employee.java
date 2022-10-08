@@ -1,34 +1,24 @@
 package net.posapp.orm;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "EMPLOYEE")
+@PrimaryKeyJoinColumn(name = "id")
 @Data
-@EqualsAndHashCode
-public class Employee implements Serializable {
+public class Employee extends net.posapp.orm.Entity implements Serializable {
 	
 	private static final long serialVersionUID = -192976203164589761L;
-	
-	@Id
-	@Column(name = "id_entity")
-	private Integer id;
 
-	@OneToOne
-	@JoinColumn(name = "id_entity", referencedColumnName = "id")
-	private net.posapp.orm.Entity entity;
-	
 	@Column(name = "job_role")
 	private String jobRole;
 	
@@ -36,9 +26,9 @@ public class Employee implements Serializable {
 	private Date admissionDate;
 
 	@Column(name = "ts_start_period")
-	private Date startPeriodTime;
+	private LocalTime startPeriodTime;
 
 	@Column(name = "ts_end_period")
-	private Date endPeriodTime;
+	private LocalTime endPeriodTime;
 	
 }

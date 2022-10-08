@@ -14,12 +14,12 @@ INSERT INTO ROLE(st_name) VALUES('Administrator');
 INSERT INTO ENTITY_TYPE(st_entity_type, st_desc) VALUES('E', 'Employee');
 INSERT INTO ENTITY_TYPE(st_entity_type, st_desc) VALUES('C', 'Customer');
 
--- INSERT ADM USER
-INSERT INTO ENTITY(st_name, st_entity_type) VALUES('Carlos Maciel', 'E');
-
 -- INSERT ADM ADDRESS
-INSERT INTO ADDRESS(id_entity, st_address, nm_number, st_zipcode, id_city) 
-VALUES(1, 'Rua Xpto', 70, '04824100', 1);
+INSERT INTO ADDRESS(st_address, nm_number, st_zipcode, id_city) 
+VALUES('Rua Xpto', 70, '04824100', 1);
+
+-- INSERT ADM USER
+INSERT INTO ENTITY(st_name, st_entity_type, id_address) VALUES('Carlos Maciel', 'E', 1);
 
 -- GIVEN ADM ROLE
 INSERT INTO ENTITY_ROLE(id_entity, id_role) VALUES(1,1);

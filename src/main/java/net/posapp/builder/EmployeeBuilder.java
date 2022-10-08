@@ -8,12 +8,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import net.posapp.constants.EntityStatus;
 import net.posapp.orm.Address;
 import net.posapp.orm.City;
 import net.posapp.orm.Employee;
-import net.posapp.orm.Entity;
 import net.posapp.orm.EntityType;
 import net.posapp.repository.CityRepository;
+import net.posapp.repository.EmployeeRepository;
 import net.posapp.repository.EntityTypeRepository;
 import net.posapp.rest.request.EmployeeAddressRequest;
 import net.posapp.rest.request.EmployeeRequest;
@@ -27,18 +28,27 @@ public class EmployeeBuilder {
 	@Autowired
 	private CityRepository cityRepository;
 
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
 	public Employee build(EmployeeRequest employeeRequest) {
 
 		if (employeeRequest != null) {
-			Entity entity = new Entity();
+			
+			Employee employee = null;
+			
 			if (employeeRequest.getId() != null) {
-				entity.setId(employeeRequest.getId());
+				employee = employeeRepository.findById(employeeRequest.getId()).orElseThrow(() -> new IllegalArgumentException("employee id doesnt exist!"));
+			}else {
+				employee = new Employee();
+				employee.setStatus(EntityStatus.ACTIVE);
 			}
-			entity.setName(employeeRequest.getName());
+			
+			employee.setName(employeeRequest.getName());
 
 			// FIND ENTITY TYPE BY ID
 			EntityType EntityType = entityTypeRepository.findByType(employeeRequest.getEntityType());
-			entity.setEntityType(EntityType);
+			employee.setEntityType(EntityType);
 
 			Address address = new Address();
 			address.setAddress(employeeRequest.getAddress().getAddress());
@@ -47,10 +57,7 @@ public class EmployeeBuilder {
 
 			Optional<City> city = cityRepository.findById(employeeRequest.getAddress().getCityId());
 			address.setCity(city.isPresent() ? city.get() : null);
-			entity.setAddress(address);
-
-			Employee employee = new Employee();
-			employee.setEntity(entity);
+			employee.setAddress(address);
 
 			employee.setJobRole(employeeRequest.getJobRole());
 			employee.setAdmissionDate(employeeRequest.getAdmissionDate());
@@ -69,22 +76,21 @@ public class EmployeeBuilder {
 		EmployeeRequest employeeRequest = new EmployeeRequest();
 		employeeRequest.setId(employee.getId());
 		employeeRequest.setJobRole(employee.getJobRole());
-		employeeRequest.setName(employee.getEntity().getName());
-		employeeRequest.setEntityType(employee.getEntity().getEntityType().getType());
-		employeeRequest
-				.setRoles(employee.getEntity().getRoles() != null && !employee.getEntity().getRoles().isEmpty()
-						? employee.getEntity().getRoles().stream().map(role -> role.getRole().getName()).collect(
-								Collectors.toList())
-						: Arrays.asList());
+		employeeRequest.setName(employee.getName());
+		employeeRequest.setEntityType(employee.getEntityType().getType());
+		employeeRequest.setRoles(employee.getRoles() != null && !employee.getRoles().isEmpty()
+				? employee.getRoles().stream().map(role -> role.getRole().getName()).collect(Collectors.toList())
+				: Arrays.asList());
 		employeeRequest.setAdmissionDate(employee.getAdmissionDate());
 		employeeRequest.setStartPeriodTime(employee.getStartPeriodTime());
 		employeeRequest.setEndPeriodTime(employee.getEndPeriodTime());
+		employeeRequest.setStatus(employee.getStatus());
 
 		EmployeeAddressRequest employeeAddressRequest = new EmployeeAddressRequest();
-		employeeAddressRequest.setAddress(employee.getEntity().getAddress().getAddress());
-		employeeAddressRequest.setNumber(employee.getEntity().getAddress().getNumber());
-		employeeAddressRequest.setZipCode(employee.getEntity().getAddress().getZipCode());
-		employeeAddressRequest.setCityId(employee.getEntity().getAddress().getCity().getId());
+		employeeAddressRequest.setAddress(employee.getAddress().getAddress());
+		employeeAddressRequest.setNumber(employee.getAddress().getNumber());
+		employeeAddressRequest.setZipCode(employee.getAddress().getZipCode());
+		employeeAddressRequest.setCityId(employee.getAddress().getCity().getId());
 
 		employeeRequest.setAddress(employeeAddressRequest);
 

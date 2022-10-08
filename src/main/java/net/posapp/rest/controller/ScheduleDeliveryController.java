@@ -1,7 +1,6 @@
 package net.posapp.rest.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import net.posapp.rest.request.ScheduleDeliveryRequest;
 import net.posapp.service.ScheduleDeliveryService;
 
@@ -36,13 +35,13 @@ public class ScheduleDeliveryController {
 	}
 
 	@PostMapping(path = "/")
-	public ResponseEntity<ScheduleDeliveryRequest> insert(ScheduleDeliveryRequest scheduleDeliveryRequest) {
+	public ResponseEntity<ScheduleDeliveryRequest> insert(@RequestBody ScheduleDeliveryRequest scheduleDeliveryRequest) {
 		scheduleDeliveryService.save(scheduleDeliveryRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body(scheduleDeliveryRequest);
 	}
 
 	@PutMapping(path = "/")
-	public ResponseEntity<ScheduleDeliveryRequest> update(ScheduleDeliveryRequest scheduleDeliveryRequest) {
+	public ResponseEntity<ScheduleDeliveryRequest> update(@RequestBody ScheduleDeliveryRequest scheduleDeliveryRequest) {
 		scheduleDeliveryService.save(scheduleDeliveryRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(scheduleDeliveryRequest);
 	}

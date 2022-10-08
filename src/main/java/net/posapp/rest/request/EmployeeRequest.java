@@ -1,7 +1,11 @@
 package net.posapp.rest.request;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,16 +19,21 @@ public class EmployeeRequest {
 	private String name;
 
 	private String entityType;
+	
+	private String status;
 
 	private EmployeeAddressRequest address;
 
 	private String jobRole;
 
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date admissionDate;
 
-	private Date startPeriodTime;
+	@JsonFormat(pattern="HH:mm")
+	private LocalTime startPeriodTime;
 
-	private Date endPeriodTime;
+	@JsonFormat(pattern="HH:mm")
+	private LocalTime endPeriodTime;
 
 	private List<String> roles;
 

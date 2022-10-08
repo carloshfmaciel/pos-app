@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "abff86df-db7a-4560-b687-bb85a6a69ca5",
+		"name": "PosApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2986907"
+	},
+	"item": [
+		{
+			"name": "Insert Employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"address\": \"Rua Xpto\",\r\n    \"cityId\": 1,\r\n    \"number\": 70,\r\n    \"zipCode\": \"04824100\"\r\n  },\r\n  \"admissionDate\": \"01/01/2022\",\r\n  \"startPeriodTime\": \"09:00\",\r\n  \"endPeriodTime\": \"18:00\",\r\n  \"entityType\": \"E\",\r\n  \"jobRole\": \"Programador\",\r\n  \"name\": \"Carlos Maciel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/employees/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 2,\r\n  \"address\": {\r\n    \"address\": \"Rua Xpto\",\r\n    \"cityId\": 1,\r\n    \"number\": 70,\r\n    \"zipCode\": \"04824100\"\r\n  },\r\n  \"admissionDate\": \"01/01/2022\",\r\n  \"startPeriodTime\": \"09:00\",\r\n  \"endPeriodTime\": \"18:00\",\r\n  \"entityType\": \"E\",\r\n  \"jobRole\": \"Programador\",\r\n  \"name\": \"Carlos Maciel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/employees/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List All Employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employees/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar Employee By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employees/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employees",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inactive Employee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/employees/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employees",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -16,11 +16,8 @@ public class ControllerExceptionHandler {
 
 	@ExceptionHandler(value = { NotFoundException.class })
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	public ErrorMessage resourceNotFoundException(NotFoundException ex) {
-		log.error(ex.getMessage(), ex);
-		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(), ex.getMessage(),
-				ex.getMessage());
-		return message;
+	public void resourceNotFoundException(NotFoundException ex) {
+		// DO NOTHING
 	}
 
 	@ExceptionHandler(value = { IllegalArgumentException.class })

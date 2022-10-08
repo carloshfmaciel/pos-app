@@ -28,36 +28,35 @@ CREATE TABLE `ENTITY_TYPE` (
   UNIQUE KEY ENTITY_TYPE(st_entity_type)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS ADDRESS;
+CREATE TABLE ADDRESS (  
+  id int(11) AUTO_INCREMENT PRIMARY KEY,
+  st_address varchar(100) NOT NULL,
+  nm_number int NOT NULL,
+  st_zipcode varchar(10) NOT NULL,
+  id_city int NOT NULL,
+  foreign key (id_city) references CITY(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS ENTITY;
 CREATE TABLE ENTITY (  
   id int(11) AUTO_INCREMENT PRIMARY KEY,
   st_name varchar(255) NOT NULL,
   st_entity_type varchar(2) NOT NULL,
   status varchar(1) NOT NULL DEFAULT 'A',
+  id_address int NULL,
   CONSTRAINT CHK_ENTITY_STATUS CHECK (status in('A', 'I')),
-  foreign key (st_entity_type) references ENTITY_TYPE(st_entity_type)
+  foreign key (st_entity_type) references ENTITY_TYPE(st_entity_type),
+  foreign key (id_address) references ADDRESS(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS EMPLOYEE;
 CREATE TABLE EMPLOYEE (
-  id_entity int NOT NULL PRIMARY KEY,
+  id int NOT NULL PRIMARY KEY,
   job_role varchar(255) NOT NULL,
   dt_admission DATE NOT NULL,
   ts_start_period TIME NOT NULL,
-  ts_end_period TIME NOT NULL,
-  foreign key (id_entity) references ENTITY(id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS ADDRESS;
-CREATE TABLE ADDRESS (  
-  id int(11) AUTO_INCREMENT PRIMARY KEY,
-  id_entity int NOT NULL,
-  st_address varchar(100) NOT NULL,
-  nm_number int NOT NULL,
-  st_zipcode varchar(10) NOT NULL,
-  id_city int NOT NULL,
-  foreign key (id_entity) references ENTITY(id),
-  foreign key (id_city) references CITY(id)
+  ts_end_period TIME NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS ROLE;

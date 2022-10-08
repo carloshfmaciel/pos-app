@@ -18,14 +18,15 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-
+	
 	@Autowired
 	private EmployeeBuilder employeeBuilder;
 
 	public EmployeeRequest save(EmployeeRequest employeeRequest) {
 		Employee employee = employeeBuilder.build(employeeRequest);
 		employeeRepository.save(employee);
-		employeeRequest.setId(employee.getEntity().getId());
+
+		employeeRequest.setId(employee.getId());
 		return employeeRequest;
 	}
 
@@ -45,10 +46,10 @@ public class EmployeeService {
 
 	public void inactive(Integer id) {
 		Employee employee = employeeRepository.findById(id).orElseThrow(() -> new NotFoundException());
-		if (employee.getEntity().getStatus().equals(OrderStatus.INACTIVE)) {
+		if (employee.getStatus().equals(OrderStatus.INACTIVE)) {
 			throw new IllegalArgumentException("status is already inactive!");
 		}
-		employee.getEntity().setStatus(EntityStatus.INACTIVE);
+		employee.setStatus(EntityStatus.INACTIVE);
 		employeeRepository.save(employee);
 	}
 
