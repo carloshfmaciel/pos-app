@@ -1,6 +1,8 @@
 package net.posapp.builder;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +36,27 @@ public class ScheduleDeliveryBuilder {
 		scheduleDelivery.setDeliveredAt(scheduleDeliveryRequest.getDeliveredAt());
 
 		return scheduleDelivery;
+	}
+
+	public ScheduleDeliveryRequest build(ScheduleDelivery scheduleDelivery) {
+
+		ScheduleDeliveryRequest scheduleDeliveryRequest = new ScheduleDeliveryRequest();
+		scheduleDeliveryRequest.setId(scheduleDelivery.getId());
+		scheduleDeliveryRequest.setEmployeeId(scheduleDelivery.getEmployee().getId());
+		scheduleDeliveryRequest.setOrderId(scheduleDelivery.getOrder().getId());
+		scheduleDeliveryRequest.setDeliveryDate(scheduleDelivery.getDeliveryDate());
+		scheduleDeliveryRequest.setStatus(scheduleDelivery.getStatus());
+		scheduleDeliveryRequest.setDeliveredAt(scheduleDelivery.getDeliveredAt());
+
+		return scheduleDeliveryRequest;
+	}
+
+	public List<ScheduleDeliveryRequest> build(List<ScheduleDelivery> scheduleDeliveries) {
+
+		List<ScheduleDeliveryRequest> result = scheduleDeliveries.stream()
+				.map(scheduleDelivery -> this.build(scheduleDelivery)).collect(Collectors.toList());
+
+		return result;
 	}
 
 }
