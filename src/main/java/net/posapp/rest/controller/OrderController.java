@@ -13,14 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.extern.slf4j.Slf4j;
-import net.posapp.exception.NotFoundException;
 import net.posapp.rest.request.OrderRequest;
 import net.posapp.service.OrderService;
 
 @RestController
 @RequestMapping("/orders")
-@Slf4j
 public class OrderController {
 
 	@Autowired
@@ -28,68 +25,31 @@ public class OrderController {
 
 	@GetMapping(path = "/")
 	public ResponseEntity<List<OrderRequest>> listAll() {
-		try {
-			List<OrderRequest> list = orderService.listAll();
-			return ResponseEntity.ok(list);
-		} catch (NotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		List<OrderRequest> list = orderService.listAll();
+		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<OrderRequest> findById(@PathVariable Integer id) {
-		try {
-			OrderRequest orderRequest = orderService.findById(id);
-			return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
-		} catch (NotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		OrderRequest orderRequest = orderService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
 	}
 
 	@PostMapping(path = "/")
 	public ResponseEntity<OrderRequest> insert(OrderRequest orderRequest) {
-		try {
-			orderService.save(orderRequest);
-			return ResponseEntity.status(HttpStatus.CREATED).body(orderRequest);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		orderService.save(orderRequest);
+		return ResponseEntity.status(HttpStatus.CREATED).body(orderRequest);
 	}
 
 	@PutMapping(path = "/")
 	public ResponseEntity<OrderRequest> update(OrderRequest orderRequest) {
-		try {
-			orderService.save(orderRequest);
-			return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		orderService.save(orderRequest);
+		return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
 	}
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity inative(@PathVariable Integer id) {
-		try {
-			orderService.inactive(id);
-		} catch (NotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-
+		orderService.inactive(id);
 		return ResponseEntity.ok().build();
 	}
 

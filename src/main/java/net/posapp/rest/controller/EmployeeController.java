@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import lombok.extern.slf4j.Slf4j;
-import net.posapp.exception.NotFoundException;
+
 import net.posapp.rest.request.EmployeeRequest;
 import net.posapp.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employees")
-@Slf4j
 public class EmployeeController {
 
 	@Autowired
@@ -27,68 +25,31 @@ public class EmployeeController {
 
 	@GetMapping(path = "/")
 	public ResponseEntity<List<EmployeeRequest>> listAll() {
-		try {
-			List<EmployeeRequest> list = employeeService.listAll();
-			return ResponseEntity.ok(list);
-		} catch (NotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		List<EmployeeRequest> list = employeeService.listAll();
+		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<EmployeeRequest> findById(@PathVariable Integer id) {
-		try {
-			EmployeeRequest employeeRequest = employeeService.findById(id);
-			return ResponseEntity.status(HttpStatus.OK).body(employeeRequest);
-		} catch (NotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		EmployeeRequest employeeRequest = employeeService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(employeeRequest);
 	}
 
 	@PostMapping(path = "/")
 	public ResponseEntity<EmployeeRequest> insert(EmployeeRequest employeeRequest) {
-		try {
-			employeeService.save(employeeRequest);
-			return ResponseEntity.status(HttpStatus.CREATED).body(employeeRequest);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		employeeService.save(employeeRequest);
+		return ResponseEntity.status(HttpStatus.CREATED).body(employeeRequest);
 	}
 
 	@PutMapping(path = "/")
 	public ResponseEntity<EmployeeRequest> update(EmployeeRequest employeeRequest) {
-		try {
-			employeeService.save(employeeRequest);
-			return ResponseEntity.status(HttpStatus.OK).body(employeeRequest);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		employeeService.save(employeeRequest);
+		return ResponseEntity.status(HttpStatus.OK).body(employeeRequest);
 	}
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity inative(@PathVariable Integer id) {
-		try {
-			employeeService.inactive(id);
-		} catch (NotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-
+		employeeService.inactive(id);
 		return ResponseEntity.ok().build();
 	}
 
