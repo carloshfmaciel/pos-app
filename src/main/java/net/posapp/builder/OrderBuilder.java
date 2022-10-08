@@ -1,6 +1,8 @@
 package net.posapp.builder;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +37,20 @@ public class OrderBuilder {
 		}
 
 		return order;
+	}
+
+	public OrderRequest build(Order order) {
+		OrderRequest orderRequest = new OrderRequest();
+		orderRequest.setOrderId(order.getId());
+		orderRequest.setCustomerId(order.getCustomer().getId());
+		orderRequest.setStatus(order.getStatus());
+		return orderRequest;
+	}
+
+	public List<OrderRequest> build(List<Order> orders) {
+
+		List<OrderRequest> result = orders.stream().map(order -> this.build(order)).collect(Collectors.toList());
+		return result;
 	}
 
 }

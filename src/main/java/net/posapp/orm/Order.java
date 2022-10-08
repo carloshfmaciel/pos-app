@@ -26,4 +26,7 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_entity", referencedColumnName = "id")
 	private Entity customer;
+
+	@Column(name = "status")
+	private String status;
 }

@@ -12,23 +12,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import lombok.extern.slf4j.Slf4j;
 import net.posapp.exception.NotFoundException;
-import net.posapp.rest.request.EmployeeRequest;
-import net.posapp.service.EmployeeService;
+import net.posapp.rest.request.OrderRequest;
+import net.posapp.service.OrderService;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/orders")
 @Slf4j
-public class EmployeeController {
+public class OrderController {
 
 	@Autowired
-	private EmployeeService employeeService;
+	private OrderService orderService;
 
 	@GetMapping(path = "/")
-	public ResponseEntity<List<EmployeeRequest>> listAll() {
+	public ResponseEntity<List<OrderRequest>> listAll() {
 		try {
-			List<EmployeeRequest> list = employeeService.listAll();
+			List<OrderRequest> list = orderService.listAll();
 			return ResponseEntity.ok(list);
 		} catch (NotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -40,10 +41,10 @@ public class EmployeeController {
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<EmployeeRequest> findById(@PathVariable Integer id) {
+	public ResponseEntity<OrderRequest> findById(@PathVariable Integer id) {
 		try {
-			EmployeeRequest employeeRequest = employeeService.findById(id);
-			return ResponseEntity.status(HttpStatus.OK).body(employeeRequest);
+			OrderRequest orderRequest = orderService.findById(id);
+			return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
 		} catch (NotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
@@ -54,10 +55,10 @@ public class EmployeeController {
 	}
 
 	@PostMapping(path = "/")
-	public ResponseEntity<EmployeeRequest> insert(EmployeeRequest employeeRequest) {
+	public ResponseEntity<OrderRequest> insert(OrderRequest orderRequest) {
 		try {
-			employeeService.save(employeeRequest);
-			return ResponseEntity.status(HttpStatus.CREATED).body(employeeRequest);
+			orderService.save(orderRequest);
+			return ResponseEntity.status(HttpStatus.CREATED).body(orderRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -66,10 +67,10 @@ public class EmployeeController {
 	}
 
 	@PutMapping(path = "/")
-	public ResponseEntity<EmployeeRequest> update(EmployeeRequest employeeRequest) {
+	public ResponseEntity<OrderRequest> update(OrderRequest orderRequest) {
 		try {
-			employeeService.save(employeeRequest);
-			return ResponseEntity.status(HttpStatus.OK).body(employeeRequest);
+			orderService.save(orderRequest);
+			return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -80,7 +81,7 @@ public class EmployeeController {
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity inative(@PathVariable Integer id) {
 		try {
-			employeeService.inactive(id);
+			orderService.inactive(id);
 		} catch (NotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
