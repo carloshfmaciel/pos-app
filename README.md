@@ -30,13 +30,14 @@ java -jar target\pos-app.jar
 
 ## Endpoints
 
-All endpoints require fully authentication. It can be done through endpoint bellow:
+All endpoints require fully authentication. It can be done through endpoint bellow:<br>
 OBS: All Postman requests can be accessed at project root, inside docs folder
 
 
 ### Getting a valid token
 
-It can used "admin" or "client" user. Both has the password "123456". Additionaly to that is necessary execute Basic Authentication informing username(client) and password(123) as follow.
+It can used "admin" or "client" user. Both has the password "123456". 
+<br>Additionaly to that is necessary execute Basic Authentication informing username(client) and password(123) as follow.
 
 Obs: To register employee is mandatory to be logged as admin because the endpoint POST and PUT requires role "ROLE_ADMIN". Only "admin" user has it.
 
