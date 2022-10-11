@@ -1,5 +1,3 @@
-# pos-app
-
 # About
 
 This project was developed to attend the following requirement:
@@ -71,7 +69,7 @@ JSON Body Request
 }
 ```
 
-2 - Create a customer
+### Creating a customer
 
 ![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/003.JPG)
 
@@ -89,7 +87,7 @@ Json Body Request
 }
 ```
 
-3 - Create a order
+### Creating a order
 
 ![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/004.JPG)
 
@@ -100,7 +98,7 @@ Json Body Request
 }
 ```
 
-4 - Insert a schedule delivery associating a customer and an employee
+### Inserting a schedule delivery associating a customer and an employee
 
 ![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/005.JPG)
 
