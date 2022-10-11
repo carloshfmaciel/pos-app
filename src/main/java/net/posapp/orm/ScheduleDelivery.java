@@ -24,7 +24,7 @@ public class ScheduleDelivery implements Serializable {
 	private static final long serialVersionUID = 3665015246816995876L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Integer id;
 

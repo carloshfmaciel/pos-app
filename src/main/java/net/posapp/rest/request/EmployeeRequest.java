@@ -1,17 +1,18 @@
 package net.posapp.rest.request;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmployeeRequest {
 
 	private Integer id;
