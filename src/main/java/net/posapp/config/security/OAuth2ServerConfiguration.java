@@ -38,6 +38,9 @@ public class OAuth2ServerConfiguration {
 		public void configure(HttpSecurity http) throws Exception {
 			http.logout().invalidateHttpSession(true).clearAuthentication(true).and().authorizeRequests()
 					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+					.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
+                        "/swagger-ui.html", "/webjars/**", "/swagger-resources/configuration/ui", "/swagger-ui.html",
+                        "/swagger-resources/configuration/security").permitAll()
 					.anyRequest().fullyAuthenticated();
 		}
 
