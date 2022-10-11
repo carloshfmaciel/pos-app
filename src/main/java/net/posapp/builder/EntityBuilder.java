@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 import net.posapp.constants.EntityStatus;
 import net.posapp.orm.Address;
 import net.posapp.orm.City;
-import net.posapp.orm.Entity;
+import net.posapp.orm.User;
 import net.posapp.orm.EntityType;
 import net.posapp.repository.CityRepository;
-import net.posapp.repository.EntityRepository;
+import net.posapp.repository.UserRepository;
 import net.posapp.repository.EntityTypeRepository;
 import net.posapp.rest.request.EntityAddressRequest;
 import net.posapp.rest.request.EntityRequest;
@@ -22,7 +22,7 @@ import net.posapp.rest.request.EntityRequest;
 public class EntityBuilder {
 
 	@Autowired
-	private EntityRepository entityRepository;
+	private UserRepository entityRepository;
 
 	@Autowired
 	private EntityTypeRepository entityTypeRepository;
@@ -30,17 +30,17 @@ public class EntityBuilder {
 	@Autowired
 	private CityRepository cityRepository;
 
-	public Entity build(EntityRequest entityRequest) {
+	public User build(EntityRequest entityRequest) {
 
 		if (entityRequest != null) {
 
-			Entity entity = null;
+			User entity = null;
 
 			if (entityRequest.getId() != null) {
 				entity = entityRepository.findById(entityRequest.getId())
 						.orElseThrow(() -> new IllegalArgumentException("id invalid!"));
 			} else {
-				entity = new Entity();
+				entity = new User();
 				entity.setStatus(EntityStatus.ACTIVE);
 			}
 
@@ -70,7 +70,7 @@ public class EntityBuilder {
 
 	}
 
-	public EntityRequest build(Entity entity) {
+	public EntityRequest build(User entity) {
 
 		EntityRequest entityRequest = new EntityRequest();
 		entityRequest.setId(entity.getId());
@@ -89,7 +89,7 @@ public class EntityBuilder {
 		return entityRequest;
 	}
 
-	public List<EntityRequest> build(List<Entity> entities) {
+	public List<EntityRequest> build(List<User> entities) {
 		List<EntityRequest> result = entities.stream().map(entity -> this.build(entity))
 				.collect(Collectors.toList());
 		return result;

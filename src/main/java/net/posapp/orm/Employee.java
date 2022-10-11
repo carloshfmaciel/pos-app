@@ -15,7 +15,7 @@ import lombok.Data;
 @Table(name = "EMPLOYEE")
 @PrimaryKeyJoinColumn(name = "id")
 @Data
-public class Employee extends net.posapp.orm.Entity implements Serializable {
+public class Employee extends net.posapp.orm.User implements Serializable {
 	
 	private static final long serialVersionUID = -192976203164589761L;
 

@@ -83,7 +83,7 @@ public class EmployeeBuilder {
 		employeeRequest.setName(employee.getName());
 		employeeRequest.setEntityType(employee.getEntityType().getType());
 		employeeRequest.setRoles(employee.getRoles() != null && !employee.getRoles().isEmpty()
-				? employee.getRoles().stream().map(role -> role.getRole().getName()).collect(Collectors.toList())
+				? employee.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
 				: Arrays.asList());
 		employeeRequest.setAdmissionDate(employee.getAdmissionDate());
 		employeeRequest.setStartPeriodTime(employee.getStartPeriodTime());

@@ -9,21 +9,21 @@ import net.posapp.builder.EntityBuilder;
 import net.posapp.constants.EntityStatus;
 import net.posapp.constants.OrderStatus;
 import net.posapp.exception.NotFoundException;
-import net.posapp.orm.Entity;
-import net.posapp.repository.EntityRepository;
+import net.posapp.orm.User;
+import net.posapp.repository.UserRepository;
 import net.posapp.rest.request.EntityRequest;
 
 @Service
 public class EntityService {
 
 	@Autowired
-	private EntityRepository entityRepository;
+	private UserRepository entityRepository;
 	
 	@Autowired
 	private EntityBuilder entityBuilder;
 
 	public EntityRequest save(EntityRequest entityRequest) {
-		Entity entity = entityBuilder.build(entityRequest);
+		User entity = entityBuilder.build(entityRequest);
 		entityRepository.save(entity);
 
 		entityRequest = entityBuilder.build(entity);
@@ -32,7 +32,7 @@ public class EntityService {
 	}
 
 	public List<EntityRequest> listAll() {
-		List<Entity> entities = entityRepository.findAll();
+		List<User> entities = entityRepository.findAll();
 		if (entities.isEmpty())
 			throw new NotFoundException();
 		List<EntityRequest> entitiesRequest = entityBuilder.build(entities);
@@ -40,13 +40,13 @@ public class EntityService {
 	}
 
 	public EntityRequest findById(Integer id) {
-		Entity entity = entityRepository.findById(id).orElseThrow(() -> new NotFoundException());
+		User entity = entityRepository.findById(id).orElseThrow(() -> new NotFoundException());
 		EntityRequest entityRequest = entityBuilder.build(entity);
 		return entityRequest;
 	}
 
 	public void inactive(Integer id) {
-		Entity entity = entityRepository.findById(id).orElseThrow(() -> new NotFoundException());
+		User entity = entityRepository.findById(id).orElseThrow(() -> new NotFoundException());
 		if (entity.getStatus().equals(OrderStatus.INACTIVE)) {
 			throw new IllegalArgumentException("status is already inactive!");
 		}

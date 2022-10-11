@@ -28,7 +28,7 @@ public class Address implements Serializable {
 	private Integer id;
 	
 	@OneToOne(mappedBy = "address")
-	private net.posapp.orm.Entity entity;
+	private net.posapp.orm.User entity;
 	
 	@Column(name = "st_address")
 	private String address;

@@ -4,7 +4,6 @@ CREATE TABLE COUNTRY (
   st_name varchar(255) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS STATE;
 CREATE TABLE STATE (  
   id int(11) AUTO_INCREMENT PRIMARY KEY,
@@ -38,14 +37,16 @@ CREATE TABLE ADDRESS (
   foreign key (id_city) references CITY(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS ENTITY;
-CREATE TABLE ENTITY (  
+DROP TABLE IF EXISTS USER;
+CREATE TABLE USER (  
   id int(11) AUTO_INCREMENT PRIMARY KEY,
   st_name varchar(255) NOT NULL,
   st_entity_type varchar(2) NOT NULL,
   status varchar(1) NOT NULL DEFAULT 'A',
   id_address int NULL,
-  CONSTRAINT CHK_ENTITY_STATUS CHECK (status in('A', 'I')),
+  password varchar(255) NULL,
+  email varchar(50) NULL,
+  CONSTRAINT CHK_USER_STATUS CHECK (status in('A', 'I')),
   foreign key (st_entity_type) references ENTITY_TYPE(st_entity_type),
   foreign key (id_address) references ADDRESS(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
@@ -66,14 +67,13 @@ CREATE TABLE ROLE (
   UNIQUE KEY ROLE_NAME (st_name)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS ENTITY_ROLE;
-CREATE TABLE ENTITY_ROLE (  
-  id int(11) AUTO_INCREMENT PRIMARY KEY,
-  id_entity int NOT NULL,
+DROP TABLE IF EXISTS USER_ROLE;
+CREATE TABLE USER_ROLE (  
+  id_user int NOT NULL,
   id_role int NOT NULL,
-  foreign key (id_entity) references ENTITY(id),
+  foreign key (id_user) references USER(id),
   foreign key (id_role) references ROLE(id),
-  UNIQUE UQ_ROLE_ENTITY (id_entity, id_role)
+  UNIQUE UQ_USER_ROLE (id_user, id_role)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ORDERS`;
@@ -81,9 +81,9 @@ CREATE TABLE `ORDERS` (
   id int(11) AUTO_INCREMENT PRIMARY KEY,
   id_customer int NOT NULL,
   status varchar(1) NOT NULL DEFAULT 'A',
-  foreign key (id_customer) references ENTITY(id),
+  foreign key (id_customer) references USER(id),
   CONSTRAINT CHK_ORDERS_STATUS CHECK (status in('A', 'I')),
-  UNIQUE UQ_ORDERS_ENTITY (id, id_customer)
+  UNIQUE UQ_ORDERS_USER (id, id_customer)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `SCHEDULE_DELIVERY`;
@@ -95,6 +95,6 @@ CREATE TABLE `SCHEDULE_DELIVERY` (
   status varchar(1) NOT NULL DEFAULT 'A',
   dt_delivered_at DATE NULL,
   CONSTRAINT CHK_SCHDLV_STATUS CHECK (status in('A', 'D', 'C')),
-  foreign key (id_order) references `ORDERS`(id),
-  foreign key (id_employee) references `ENTITY`(id)
+  foreign key (id_order) references ORDERS(id),
+  foreign key (id_employee) references USER(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

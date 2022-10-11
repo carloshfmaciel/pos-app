@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import net.posapp.constants.OrderStatus;
-import net.posapp.orm.Entity;
+import net.posapp.orm.User;
 import net.posapp.orm.Order;
-import net.posapp.repository.EntityRepository;
+import net.posapp.repository.UserRepository;
 import net.posapp.repository.OrderRepository;
 import net.posapp.rest.request.OrderRequest;
 
@@ -21,7 +21,7 @@ public class OrderBuilder {
 	private OrderRepository orderRepository;
 
 	@Autowired
-	private EntityRepository entityRepository;
+	private UserRepository entityRepository;
 
 	public Order build(OrderRequest orderRequest) {
 
@@ -35,7 +35,7 @@ public class OrderBuilder {
 			order.setStatus(OrderStatus.ACTIVE);
 		}
 
-		Entity entityResult = entityRepository.findById(orderRequest.getCustomerId())
+		User entityResult = entityRepository.findById(orderRequest.getCustomerId())
 				.orElseThrow(() -> new IllegalArgumentException("customerId is invalid!"));
 		order.setCustomer(entityResult);
 
