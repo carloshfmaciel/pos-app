@@ -46,11 +46,11 @@ Obs: To register employee is mandatory to be logged as admin because the endpoin
 localhost:8080/oauth/token
 ```
 
-![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/001.JPG)
+![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/001.JPG)
 
 ### Registering an Employee
 
-![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/002.JPG)
+![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/002.JPG)
 
 JSON Body Request
 ```
@@ -73,7 +73,7 @@ JSON Body Request
 
 2 - Create a customer
 
-![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/003.JPG)
+![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/003.JPG)
 
 Json Body Request
 ```
@@ -91,7 +91,7 @@ Json Body Request
 
 3 - Create a order
 
-![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/004.JPG)
+![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/004.JPG)
 
 Json Body Request
 ```
@@ -102,7 +102,7 @@ Json Body Request
 
 4 - Insert a schedule delivery associating a customer and an employee
 
-![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/005.JPG)
+![image](https://github.com/carloshfmaciel/pos-app/blob/main/screenshots/005.JPG)
 
 ```
 {
