@@ -1,6 +1,6 @@
 # About
 
-This project was developed to attend the following requirement:
+This project was developed to satisfy the following requirements:
 
 ```
 Nossa empresa está precisando cuidar do delivery dos POS (Máquinas de cartão) aos nossos clientes, e seu trabalho é produzir um sistema (API) que controlará o envio desses materiais, ligando à tabela de funcionários.
