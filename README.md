@@ -35,21 +35,22 @@ java -jar target\pos-app.jar
 All endpoints require fully authentication. It can be done through endpoint bellow:
 OBS: All Postman requests can be accessed at project root, inside docs folder
 
+
 ### Getting a valid token
 
 It can used "admin" or "client" user. Both has the password "123456". Additionaly to that is necessary execute Basic Authentication informing username(client) and password(123) as follow.
+
+Obs: To register employee is mandatory to be logged as admin because the endpoint POST and PUT requires role "ROLE_ADMIN". Only "admin" user has it.
 
 ```
 localhost:8080/oauth/token
 ```
 
-Obs: To register employee is mandatory to be logged as admin because the endpoint POST and PUT requires role "ROLE_ADMIN". Only "admin" user has it.
-
-[image]
+![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/001.JPG)
 
 ### Registering an Employee
 
-[image]
+![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/002.JPG)
 
 JSON Body Request
 ```
@@ -72,7 +73,7 @@ JSON Body Request
 
 2 - Create a customer
 
-[image]
+![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/003.JPG)
 
 Json Body Request
 ```
@@ -90,7 +91,7 @@ Json Body Request
 
 3 - Create a order
 
-[image]
+![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/004.JPG)
 
 Json Body Request
 ```
@@ -101,7 +102,7 @@ Json Body Request
 
 4 - Insert a schedule delivery associating a customer and an employee
 
-[image]
+![image](https://github.com/carloshfmaciel/pos-app/main/screenshots/005.JPG)
 
 ```
 {
