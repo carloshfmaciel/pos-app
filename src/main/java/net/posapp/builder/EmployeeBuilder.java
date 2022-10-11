@@ -16,8 +16,8 @@ import net.posapp.orm.EntityType;
 import net.posapp.repository.CityRepository;
 import net.posapp.repository.EmployeeRepository;
 import net.posapp.repository.EntityTypeRepository;
-import net.posapp.rest.request.EmployeeAddressRequest;
 import net.posapp.rest.request.EmployeeRequest;
+import net.posapp.rest.request.EntityAddressRequest;
 
 @Component
 public class EmployeeBuilder {
@@ -49,6 +49,10 @@ public class EmployeeBuilder {
 			// FIND ENTITY TYPE BY ID
 			EntityType EntityType = entityTypeRepository.findByType(employeeRequest.getEntityType());
 			employee.setEntityType(EntityType);
+			
+			if(employeeRequest.getAddress() == null) {
+				throw new IllegalArgumentException("address is mandatory!");
+			}
 
 			Address address = new Address();
 			address.setAddress(employeeRequest.getAddress().getAddress());
@@ -86,7 +90,7 @@ public class EmployeeBuilder {
 		employeeRequest.setEndPeriodTime(employee.getEndPeriodTime());
 		employeeRequest.setStatus(employee.getStatus());
 
-		EmployeeAddressRequest employeeAddressRequest = new EmployeeAddressRequest();
+		EntityAddressRequest employeeAddressRequest = new EntityAddressRequest();
 		employeeAddressRequest.setAddress(employee.getAddress().getAddress());
 		employeeAddressRequest.setNumber(employee.getAddress().getNumber());
 		employeeAddressRequest.setZipCode(employee.getAddress().getZipCode());

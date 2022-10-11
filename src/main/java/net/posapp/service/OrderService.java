@@ -23,8 +23,10 @@ public class OrderService {
 
 	public OrderRequest save(OrderRequest orderRequest) {
 		Order order = orderBuilder.build(orderRequest);
-		Order orderSaved = orderRepository.save(order);
-		orderRequest.setOrderId(orderSaved.getId());
+		orderRepository.save(order);
+
+		orderRequest = orderBuilder.build(order);
+		
 		return orderRequest;
 	}
 

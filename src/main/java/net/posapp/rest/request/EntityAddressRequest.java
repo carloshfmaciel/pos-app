@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode
-public class EmployeeAddressRequest {
+public class EntityAddressRequest {
 
 	private String address;
 

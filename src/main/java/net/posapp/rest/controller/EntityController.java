@@ -1,7 +1,6 @@
 package net.posapp.rest.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,44 +12,43 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import net.posapp.rest.request.OrderRequest;
-import net.posapp.service.OrderService;
+import net.posapp.rest.request.EntityRequest;
+import net.posapp.service.EntityService;
 
 @RestController
-@RequestMapping("/orders")
-public class OrderController {
-
+@RequestMapping("/entities")
+public class EntityController {
+	
 	@Autowired
-	private OrderService orderService;
+	private EntityService entityService;
 
 	@GetMapping(path = "/")
-	public ResponseEntity<List<OrderRequest>> listAll() {
-		List<OrderRequest> list = orderService.listAll();
+	public ResponseEntity<List<EntityRequest>> listAll() {
+		List<EntityRequest> list = entityService.listAll();
 		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<OrderRequest> findById(@PathVariable Integer id) {
-		OrderRequest orderRequest = orderService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
+	public ResponseEntity<EntityRequest> findById(@PathVariable Integer id) {
+		EntityRequest entityRequest = entityService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(entityRequest);
 	}
 
 	@PostMapping(path = "/")
-	public ResponseEntity<OrderRequest> insert(@RequestBody OrderRequest orderRequest) {
-		orderRequest = orderService.save(orderRequest);
-		return ResponseEntity.status(HttpStatus.CREATED).body(orderRequest);
+	public ResponseEntity<EntityRequest> insert(@RequestBody EntityRequest entityRequest) {
+		entityRequest = entityService.save(entityRequest);
+		return ResponseEntity.status(HttpStatus.CREATED).body(entityRequest);
 	}
 
 	@PutMapping(path = "/")
-	public ResponseEntity<OrderRequest> update(@RequestBody OrderRequest orderRequest) {
-		orderService.save(orderRequest);
-		return ResponseEntity.status(HttpStatus.OK).body(orderRequest);
+	public ResponseEntity<EntityRequest> update(@RequestBody EntityRequest entityRequest) {
+		entityRequest = entityService.save(entityRequest);
+		return ResponseEntity.status(HttpStatus.OK).body(entityRequest);
 	}
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity inative(@PathVariable Integer id) {
-		orderService.inactive(id);
+		entityService.inactive(id);
 		return ResponseEntity.ok().build();
 	}
 

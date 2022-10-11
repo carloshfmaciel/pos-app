@@ -76,14 +76,14 @@ CREATE TABLE ENTITY_ROLE (
   UNIQUE UQ_ROLE_ENTITY (id_entity, id_role)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ORDER`;
-CREATE TABLE `ORDER` (  
+DROP TABLE IF EXISTS `ORDERS`;
+CREATE TABLE `ORDERS` (  
   id int(11) AUTO_INCREMENT PRIMARY KEY,
   id_customer int NOT NULL,
   status varchar(1) NOT NULL DEFAULT 'A',
   foreign key (id_customer) references ENTITY(id),
-  CONSTRAINT CHK_ORDER_STATUS CHECK (status in('A', 'I')),
-  UNIQUE UQ_ORDER_ENTITY (id, id_customer)
+  CONSTRAINT CHK_ORDERS_STATUS CHECK (status in('A', 'I')),
+  UNIQUE UQ_ORDERS_ENTITY (id, id_customer)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `SCHEDULE_DELIVERY`;
@@ -95,6 +95,6 @@ CREATE TABLE `SCHEDULE_DELIVERY` (
   status varchar(1) NOT NULL DEFAULT 'A',
   dt_delivered_at DATE NULL,
   CONSTRAINT CHK_SCHDLV_STATUS CHECK (status in('A', 'D', 'C')),
-  foreign key (id_order) references `ORDER`(id),
+  foreign key (id_order) references `ORDERS`(id),
   foreign key (id_employee) references `ENTITY`(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

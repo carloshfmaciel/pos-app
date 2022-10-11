@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @javax.persistence.Entity
-@Table(name = "ORDER")
+@Table(name = "ORDERS")
 @Data
 @EqualsAndHashCode
 public class Order implements Serializable {
@@ -22,12 +22,12 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 5279496094720245873L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "id_entity", referencedColumnName = "id")
+	@JoinColumn(name = "id_customer", referencedColumnName = "id")
 	private Entity customer;
 
 	@Column(name = "status")

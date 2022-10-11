@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import net.posapp.constants.OrderStatus;
 import net.posapp.orm.Entity;
 import net.posapp.orm.Order;
 import net.posapp.repository.EntityRepository;
@@ -26,15 +27,17 @@ public class OrderBuilder {
 
 		Order order = new Order();
 
-		Optional<Order> orderResult = orderRepository.findById(orderRequest.getOrderId());
-		if (orderResult.isPresent()) {
-			order = orderResult.get();
+		if (orderRequest.getOrderId() != null) {
+			Order orderResult = orderRepository.findById(orderRequest.getOrderId())
+					.orElseThrow(() -> new IllegalArgumentException("orderId is invalid!"));
+			order = orderResult;
+		}else{
+			order.setStatus(OrderStatus.ACTIVE);
 		}
 
-		Optional<Entity> entityResult = entityRepository.findById(orderRequest.getCustomerId());
-		if (entityResult.isPresent()) {
-			order.setCustomer(entityResult.get());
-		}
+		Entity entityResult = entityRepository.findById(orderRequest.getCustomerId())
+				.orElseThrow(() -> new IllegalArgumentException("customerId is invalid!"));
+		order.setCustomer(entityResult);
 
 		return order;
 	}

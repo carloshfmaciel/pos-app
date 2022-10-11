@@ -22,7 +22,7 @@ public class EmployeeRequest {
 	
 	private String status;
 
-	private EmployeeAddressRequest address;
+	private EntityAddressRequest address;
 
 	private String jobRole;
 
